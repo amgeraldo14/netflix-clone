@@ -11,7 +11,7 @@ export default async function handler(
   }
 
   try {
-    const { email, username, password } = req.body;
+    const { email, name, password } = req.body;
     const existingUser = await prismadb.user.findUnique({
       where: {
         email,
@@ -27,7 +27,7 @@ export default async function handler(
     const user = await prismadb.user.create({
       data: {
         email,
-        username,
+        name,
         hashedPassword,
         image: "",
         emailVerified: new Date(),
