@@ -6,6 +6,27 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { getServerSession } from "next-auth";
+import { NextPageContext } from "next";
+import { authOptions } from "./api/auth/[...nextauth]";
+
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  // const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 const Auth = () => {
   const router = useRouter();
@@ -87,10 +108,16 @@ const Auth = () => {
                 {variant === "login" ? "Login" : "Sign up"}
               </button>
               <div className="flex items-center gap-4 mt-8 justify-center">
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition ">
+                <div
+                  className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+                  onClick={() => signIn("google", { callbackUrl: "/" })}
+                >
                   <FcGoogle size={30} />
                 </div>
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition ">
+                <div
+                  className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+                  onClick={() => signIn("github", { callbackUrl: "/" })}
+                >
                   <FaGithub size={30} />
                 </div>
               </div>
