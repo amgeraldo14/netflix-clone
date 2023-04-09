@@ -4,6 +4,7 @@ import { getSession, signOut } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { useEffect } from "react";
+import Navbar from "@/components/Navbar";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -29,6 +30,7 @@ export default function Home() {
   console.log({ user });
   return (
     <>
+      <Navbar />
       <h1 className="text-white">Netflix clone</h1>
       <p className="text-white">
         Logged in as : {isLoading ? "Loading..." : user?.name}
