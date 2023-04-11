@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         console.log("next auth jalan");
-        console.log({ credentials });
+
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Email and password required");
         }
@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
         if (!isCorrectPassword) {
           throw new Error("Incorrect password");
         }
-
+        console.log({ user });
         return user;
       },
     }),

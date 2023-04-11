@@ -47,7 +47,7 @@ const Auth = () => {
       await signIn("credentials", {
         email,
         password,
-        redirect: false,
+
         callbackUrl: "/profile",
       });
     } catch (error) {
