@@ -6,6 +6,8 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Billboard from "./billboard";
+import MovieList from "@/components/MovieList";
+import useMovieList from "@/hooks/useMovieList";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -27,11 +29,15 @@ export async function getServerSideProps(context: NextPageContext) {
 
 export default function Home() {
   const { data: user, error, isLoading, mutate } = useCurrentuser();
+  const { data: movies = [] } = useMovieList();
 
   return (
     <>
       <Navbar />
       <Billboard />
+      <div className="pb-40">
+        <MovieList title="Trending Now" data={movies} />
+      </div>
     </>
   );
 }
