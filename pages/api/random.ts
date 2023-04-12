@@ -18,7 +18,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     return res.status(200).json(randomMovies[0]);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    return res.status(402).end();
+  }
 };
 
 export default handler;

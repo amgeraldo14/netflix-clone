@@ -42,7 +42,10 @@ const Auth = () => {
     );
   };
 
-  const login = async () => {
+  const login = async (e?: any) => {
+    if (e) {
+      e.preventDefault();
+    }
     try {
       await signIn("credentials", {
         email,
@@ -55,7 +58,8 @@ const Auth = () => {
     }
   };
 
-  const register = async () => {
+  const register = async (e: any) => {
+    e.preventDefault();
     try {
       await axios.post("/api/register", { email, name, password });
       login();
@@ -71,7 +75,10 @@ const Auth = () => {
           {/* <img src="/images/logo.png" alt="logo" className="h-12" /> */}
           <Image src="/images/logo.png" alt="logo" width={180} height={48} />
         </nav>
-        <div className="flex justify-center">
+        <form
+          className="flex justify-center"
+          onSubmit={variant === "register" ? register : login}
+        >
           <div className="bg-black/70 p-16 mt-2 self-center lg:w-2/5 lg:max-w-md rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
               {variant === "login" ? "Sign in" : "Register"}
@@ -101,7 +108,7 @@ const Auth = () => {
                 value={password}
               />
               <button
-                onClick={variant === "register" ? register : login}
+                type="submit"
                 className="text-white bg-red-600 rounded w-full mt-10 hover:bg-red-700 py-3 transition"
               >
                 {variant === "login" ? "Login" : "Sign up"}
@@ -134,7 +141,7 @@ const Auth = () => {
               </p>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
