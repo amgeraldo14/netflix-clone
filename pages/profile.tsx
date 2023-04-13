@@ -1,10 +1,10 @@
 import { getServerSession } from "next-auth";
 import React from "react";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { NextPageContext } from "next";
+
 import useCurrentuser from "@/hooks/useCurrentUser";
 import Link from "next/link";
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: any) {
   const session = getServerSession(context.req, context.res, authOptions);
 
   if (!session) {

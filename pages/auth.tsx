@@ -7,10 +7,10 @@ import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { getServerSession } from "next-auth";
-import { NextPageContext } from "next";
+
 import { authOptions } from "./api/auth/[...nextauth]";
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, authOptions);
   // const session = await getSession(context);
 
