@@ -53,13 +53,15 @@ export const authOptions: NextAuthOptions = {
         if (!isCorrectPassword) {
           throw new Error("Incorrect password");
         }
-        console.log({ user });
+
         return user;
       },
     }),
   ],
+
   pages: {
     signIn: "/auth",
+    error: "/auth",
   },
   debug: process.env.NODE_ENV === "development",
   adapter: PrismaAdapter(prismadb),

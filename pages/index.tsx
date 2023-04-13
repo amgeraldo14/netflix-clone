@@ -1,18 +1,15 @@
-import useCurrentuser from "@/hooks/useCurrentUser";
 import { NextPageContext } from "next";
-import { getSession, signOut } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import Billboard from "./Billboard";
+import Billboard from "@/components/Billboard";
 import MovieList from "@/components/MovieList";
 import useMovieList from "@/hooks/useMovieList";
 import useFavorites from "@/hooks/useFavorites";
 import InfoModal from "@/components/InfoModal";
 import useInfoModal from "@/hooks/useInfoModal";
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, authOptions);
   // const session = await getSession(context);
 
