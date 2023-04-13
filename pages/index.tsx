@@ -2,7 +2,7 @@ import { NextPageContext } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import Navbar from "@/components/Navbar";
-import Billboard from "./Billboard";
+import Billboard from "@/components/Billboard";
 import MovieList from "@/components/MovieList";
 import useMovieList from "@/hooks/useMovieList";
 import useFavorites from "@/hooks/useFavorites";

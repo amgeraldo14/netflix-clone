@@ -30,9 +30,11 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const Auth = () => {
   const router = useRouter();
+  const { error } = router.query;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [variant, setVariant] = useState("login");
 
@@ -43,6 +45,7 @@ const Auth = () => {
   };
 
   const login = async (e?: any) => {
+    setIsLoading(true);
     if (e) {
       e.preventDefault();
     }
@@ -53,18 +56,22 @@ const Auth = () => {
 
         callbackUrl: "/profile",
       });
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
   const register = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await axios.post("/api/register", { email, name, password });
       login();
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -107,9 +114,13 @@ const Auth = () => {
                 label="Password"
                 value={password}
               />
+              {error && <p className="text-red-600">Error: {error}</p>}
               <button
                 type="submit"
-                className="text-white bg-red-600 rounded w-full mt-10 hover:bg-red-700 py-3 transition"
+                disabled={isLoading}
+                className={`${
+                  isLoading ? "animate-pulse duration-200" : ""
+                } text-white bg-red-600 rounded w-full mt-10 hover:bg-red-700 py-3 transition`}
               >
                 {variant === "login" ? "Login" : "Sign up"}
               </button>
